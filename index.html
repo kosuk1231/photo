@@ -165,7 +165,7 @@ input:focus, button:focus { outline: none; }
     </div>
     <div style="margin-top:20px"><div class="subtitle">40년의 순간 포착</div></div>
     <div class="desc">
-      총 <strong>6장</strong>의 사진을 심사합니다.<br>
+      총 <strong>40장</strong>의 사진을 심사합니다.<br>
       각 사진에 <strong>1점~10점</strong> 사이의 점수를 부여해 주세요.
     </div>
     <div class="input-wrap" style="margin-top:8px">
@@ -188,7 +188,7 @@ input:focus, button:focus { outline: none; }
   <div style="margin-bottom:24px;">
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
       <span style="font-size:13px; color:var(--text-dark);">심사 진행률</span>
-      <span style="font-size:13px; color:var(--mint); font-weight:700;" id="progress-text">0 / 6</span>
+      <span style="font-size:13px; color:var(--mint); font-weight:700;" id="progress-text">0 / 40</span>
     </div>
     <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
     <div style="margin-top:12px; text-align:right;">
@@ -259,6 +259,40 @@ const PHOTOS = [
   { id:4,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/4.png" },
   { id:5,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/5.png" },
   { id:6,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/6.png" },
+  { id:7,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/7.png" },
+  { id:8,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/8.png" },
+  { id:9,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/9.png" },
+  { id:10, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/10.png" },
+  { id:11, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/11.png" },
+  { id:12, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/12.png" },
+  { id:13, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/13.png" },
+  { id:14, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/14.png" },
+  { id:15, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/15.png" },
+  { id:16, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/16.png" },
+  { id:17, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/17.png" },
+  { id:18, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/18.png" },
+  { id:19, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/19.png" },
+  { id:20, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/20.png" },
+  { id:21, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/21.png" },
+  { id:22, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/22.png" },
+  { id:23, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/23.png" },
+  { id:24, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/24.png" },
+  { id:25, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/25.png" },
+  { id:26, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/26.png" },
+  { id:27, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/27.png" },
+  { id:28, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/28.png" },
+  { id:29, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/29.png" },
+  { id:30, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/30.png" },
+  { id:31, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/31.png" },
+  { id:32, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/32.png" },
+  { id:33, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/33.png" },
+  { id:34, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/34.png" },
+  { id:35, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/35.png" },
+  { id:36, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/36.png" },
+  { id:37, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/37.png" },
+  { id:38, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/38.png" },
+  { id:39, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/39.png" },
+  { id:40, title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/40.png" },
 ];
 
 let judgeName = "";
