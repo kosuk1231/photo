@@ -436,10 +436,12 @@ function initSignatureCanvas() {
   function onEnd(e){ 
     e.preventDefault(); sigDrawing=false; 
     if(sigHasDrawn){
-      const temp=document.createElement("canvas"); temp.width=sigCanvas.width/3; temp.height=sigCanvas.height/3;
-      const tc=temp.getContext("2d"); tc.fillStyle="#ffffff"; tc.fillRect(0,0,temp.width,temp.height);
+      const temp=document.createElement("canvas"); 
+      temp.width=Math.floor(sigCanvas.width/3); temp.height=Math.floor(sigCanvas.height/3);
+      const tc=temp.getContext("2d"); 
+      tc.fillStyle="#ffffff"; tc.fillRect(0,0,temp.width,temp.height);
       tc.drawImage(sigCanvas,0,0,temp.width,temp.height);
-      signatureData=temp.toDataURL("image/jpeg",0.6); updateProgress();
+      signatureData=temp.toDataURL("image/png"); updateProgress();
     } 
   }
   sigCanvas.addEventListener("mousedown",onStart); sigCanvas.addEventListener("mousemove",onMove);
@@ -472,6 +474,13 @@ async function submitJudging() {
       body: JSON.stringify({ row }),
       redirect: "follow",
     });
+
+    const text = await res.text();
+    if(text.indexOf("error:") !== -1) {
+      showError("judging-error","구글 시트 저장 오류: " + text);
+      btn.textContent="심사 제출하기"; btn.disabled=false;
+      return;
+    }
 
     document.getElementById("done-name").textContent = judgeName;
     document.getElementById("done-total").textContent = totalScore;
