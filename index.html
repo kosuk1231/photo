@@ -455,7 +455,7 @@ async function submitJudging() {
     const scoreValues = []; for(let i=1;i<=TOTAL;i++) scoreValues.push(scores[i]||0);
     const totalScore = scoreValues.reduce((a,b)=>a+b,0);
     const avgScore = (totalScore/TOTAL).toFixed(1);
-    const row = [timestamp, judgeName, ...scoreValues, totalScore, avgScore, "서명완료"];
+    const row = [timestamp, judgeName, ...scoreValues, totalScore, avgScore, signatureData];
 
     // Vercel 환경: fetch POST가 정상 작동
     const res = await fetch(WEBHOOK_URL, {
