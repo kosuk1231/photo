@@ -253,12 +253,12 @@ const WEBHOOK_URL = "https://script.google.com/macros/s/AKfycbz7kzJA3Y1HL8IZwnHb
 // 1. images/ 폴더에 사진 파일을 넣으세요 (예: 01.jpg, 02.jpg ...)
 // 2. 아래 배열에서 각 사진의 title(제목), desc(설명), img(파일명)를 수정하세요
 const PHOTOS = [
-  { id:1,  title:"사진 1",  desc:"사진 설명을 입력하세요", img:"images/사진1.png" },
-  { id:2,  title:"사진 2",  desc:"사진 설명을 입력하세요", img:"images/사진2.png" },
-  { id:3,  title:"사진 3",  desc:"사진 설명을 입력하세요", img:"images/사진3.png" },
-  { id:4,  title:"사진 4",  desc:"사진 설명을 입력하세요", img:"images/사진4.png" },
-  { id:5,  title:"사진 5",  desc:"사진 설명을 입력하세요", img:"images/사진5.png" },
-  { id:6,  title:"사진 6",  desc:"사진 설명을 입력하세요", img:"images/사진6.png" },
+  { id:1,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/1.png" },
+  { id:2,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/2.png" },
+  { id:3,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/3.png" },
+  { id:4,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/4.png" },
+  { id:5,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/5.png" },
+  { id:6,  title:"사진 제목을 입력하세요",  desc:"사진 내용을 입력하세요", img:"images/6.png" },
 ];
 
 let judgeName = "";
@@ -334,12 +334,9 @@ function renderCards() {
         </div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
-        <div>
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-            <span class="card-num ${scores[id]?'scored':''}" id="num-${id}">#${String(id).padStart(2,'0')}</span>
-            <span style="font-size:16px;font-weight:700">${photo.title}</span>
-          </div>
-          <div style="font-size:13px;color:var(--text-dark);padding-left:2px">${photo.desc}</div>
+        <div style="flex:1">
+          <div style="font-size:17px;font-weight:800;color:var(--text);margin-bottom:6px" id="num-${id}">${id}번. ${photo.title}</div>
+          <div style="font-size:13px;color:var(--text-dark);line-height:1.6">${photo.desc}</div>
         </div>
         <div id="score-display-${id}" style="font-size:24px;font-weight:900;color:var(--mint);min-width:40px;text-align:right;${scores[id]?'':'display:none'}">
           ${scores[id]||''}<span style="font-size:11px;font-weight:400;color:#5a7a72">점</span>
