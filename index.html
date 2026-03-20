@@ -149,9 +149,62 @@ input:focus, button:focus { outline: none; }
 .hidden { display:none; }
 .cards-container { display:flex; flex-direction:column; gap:16px; transition: opacity 0.3s, transform 0.3s; }
 .cards-container.fading { opacity:0; transform:translateY(10px); }
+
+/* Lightbox */
+.lightbox-overlay {
+  position:fixed; inset:0; z-index:9999;
+  background:rgba(0,0,0,0.92);
+  display:flex; align-items:center; justify-content:center;
+  padding:16px;
+  opacity:0; transition: opacity 0.25s;
+  pointer-events:none;
+}
+.lightbox-overlay.open { opacity:1; pointer-events:all; }
+.lightbox-inner {
+  position:relative; max-width:100%; max-height:100%;
+  display:flex; flex-direction:column; align-items:center; gap:12px;
+  transform:scale(0.92); transition: transform 0.25s;
+}
+.lightbox-overlay.open .lightbox-inner { transform:scale(1); }
+.lightbox-inner img {
+  max-width:min(90vw, 900px); max-height:80vh;
+  object-fit:contain; border-radius:10px;
+  box-shadow:0 8px 48px rgba(0,0,0,0.7);
+  display:block;
+}
+.lightbox-caption {
+  font-size:15px; font-weight:700; color:var(--text);
+  text-align:center; letter-spacing:1px;
+}
+.lightbox-close {
+  position:fixed; top:18px; right:20px;
+  width:40px; height:40px; border-radius:50%;
+  background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15);
+  color:#fff; font-size:20px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:background 0.2s;
+  font-family:'Noto Sans KR',sans-serif;
+}
+.lightbox-close:hover { background:rgba(255,255,255,0.22); }
+.card-img-wrap { cursor:zoom-in; }
+.img-zoom-hint {
+  position:absolute; bottom:8px; right:8px;
+  background:rgba(0,0,0,0.55); color:rgba(255,255,255,0.75);
+  font-size:11px; padding:3px 8px; border-radius:6px;
+  pointer-events:none; letter-spacing:0.5px;
+}
 </style>
 </head>
 <body>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lightbox-inner" onclick="event.stopPropagation()">
+    <img id="lightbox-img" src="" alt="">
+    <div class="lightbox-caption" id="lightbox-caption"></div>
+  </div>
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+</div>
 
 <div class="grid-bg"></div>
 
@@ -360,12 +413,13 @@ function renderCards() {
     card.className=`card ${scores[id]?"scored":""} slide-in`;
     card.style.animationDelay=`${i*0.08}s`; card.id=`card-${id}`;
     card.innerHTML=`
-      <div class="card-img-wrap">
-        <img src="${photo.img}" alt="${photo.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="card-img-wrap" onclick="openLightbox('${photo.img}','${id}번. ${photo.title}')">
+        <img src="${photo.img}" alt="${photo.title}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';this.parentElement.style.cursor='default';this.parentElement.onclick=null;">
         <div class="card-img-empty" style="display:none;">
           <span style="font-size:32px;opacity:0.3;">📷</span>
           <span style="font-size:12px;color:var(--text-darker);margin-top:4px;">이미지 없음</span>
         </div>
+        <div class="img-zoom-hint">🔍 클릭하여 크게 보기</div>
       </div>
       <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px">
         <div style="flex:1">
@@ -492,6 +546,23 @@ async function submitJudging() {
     btn.textContent="심사 제출하기"; btn.disabled=false;
   }
 }
+
+// ===== LIGHTBOX =====
+function openLightbox(src, caption) {
+  const lb = document.getElementById("lightbox");
+  document.getElementById("lightbox-img").src = src;
+  document.getElementById("lightbox-caption").textContent = caption;
+  lb.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById("lightbox") && !e.target.classList.contains("lightbox-close")) return;
+  const lb = document.getElementById("lightbox");
+  lb.classList.remove("open");
+  document.body.style.overflow = "";
+  setTimeout(() => { document.getElementById("lightbox-img").src = ""; }, 250);
+}
+document.addEventListener("keydown", e => { if(e.key==="Escape") { document.getElementById("lightbox").classList.remove("open"); document.body.style.overflow=""; } });
 </script>
 </body>
 </html>
